@@ -1,11 +1,12 @@
 package nodesStructure;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MyStructure implements IMyStructure {
+public class MyStructure implements IMyStructure, Iterable<INode> {
     private List<INode> nodes = new LinkedList<>();
-    private List<INode> flatNodes = new LinkedList<>();
+
 
     private List<INode> getFlattenedNodes() {
         return null;
@@ -33,5 +34,10 @@ public class MyStructure implements IMyStructure {
 
     public void addNode(INode node) {
         nodes.add(node);
+    }
+
+    @Override
+    public Iterator<INode> iterator() {
+        return new MyIterator(nodes);
     }
 }
