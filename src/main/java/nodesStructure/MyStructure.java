@@ -8,28 +8,41 @@ public class MyStructure implements IMyStructure, Iterable<INode> {
     private List<INode> nodes = new LinkedList<>();
 
 
-    private List<INode> getFlattenedNodes() {
-        return null;
-    }
-
     @Override
     public INode findByCode(String code) {
-        return null;
+        return flatten()
+                .stream()
+                .filter(iNode -> iNode.getCode().equals(code))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public INode findByRenderer(String renderer) {
-        return null;
+        return flatten()
+                .stream()
+                .filter(iNode -> iNode.getRenderer().equals(renderer))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public int count() {
-        return getFlattenedNodes().size();
+        return flatten().size();
     }
 
 
-    private void flatten(List<INode> nodes) {
+    private List<INode> flatten() {
+        List<INode> flatNodes;
+        flatNodes = nodes;
 
+        while (iterator().hasNext()) {
+            INode temp = iterator().next();
+            if (temp instanceof ICompositeNode) {
+                flatNodes.addAll(((ICompositeNode)iterator().next()).getNodes());
+            }
+        }
+        return flatNodes;
     }
 
     public void addNode(INode node) {

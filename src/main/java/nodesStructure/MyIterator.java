@@ -13,11 +13,18 @@ public class MyIterator implements Iterator<INode> {
 
     @Override
     public boolean hasNext() {
-        return false;
+        if (pos < nodes.size())
+            return true;
+        else
+            return false;
     }
 
     @Override
     public INode next() {
-        return null;
+        if (this.hasNext())
+            return nodes.get(pos++);
+        else
+            return null;
     }
+
 }
