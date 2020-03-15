@@ -5,18 +5,15 @@ import java.util.List;
 
 public class MyIterator implements Iterator<INode> {
     private int pos = 0;
-    List<INode> nodes;
+    private List<INode> nodes;
 
-    public MyIterator(List<INode> nodes) {
+    MyIterator(List<INode> nodes) {
         this.nodes = nodes;
     }
 
     @Override
     public boolean hasNext() {
-        if (pos < nodes.size())
-            return true;
-        else
-            return false;
+        return pos < nodes.size();
     }
 
     @Override

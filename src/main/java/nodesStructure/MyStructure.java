@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MyStructure implements IMyStructure, Iterable<INode> {
     private List<INode> nodes = new LinkedList<>();
-
+    private MyIterator myIterator;
 
     @Override
     public INode findByCode(String code) {
@@ -33,24 +33,28 @@ public class MyStructure implements IMyStructure, Iterable<INode> {
 
 
     private List<INode> flatten() {
-        List<INode> flatNodes;
-        flatNodes = nodes;
+        List<INode> flatNodes = nodes;
+        myIterator = new MyIterator(flatNodes);
 
         while (iterator().hasNext()) {
             INode temp = iterator().next();
             if (temp instanceof ICompositeNode) {
-                flatNodes.addAll(((ICompositeNode)iterator().next()).getNodes());
+                for (INode node : ((ICompositeNode) temp).getNodes()){
+                    if (!flatNodes.contains(node)){
+                        flatNodes.add(node);
+                    }
+                }
             }
         }
         return flatNodes;
     }
 
-    public void addNode(INode node) {
+    void addNode(INode node) {
         nodes.add(node);
     }
 
     @Override
     public Iterator<INode> iterator() {
-        return new MyIterator(nodes);
+        return myIterator;
     }
 }

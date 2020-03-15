@@ -10,7 +10,7 @@ public class CompositeNode implements ICompositeNode {
     private String renderer;
     private List<INode> nodes = new LinkedList<>();
 
-    public CompositeNode(String code, String renderer) {
+    CompositeNode(String code, String renderer) {
         this.code = code;
         this.renderer = renderer;
     }
@@ -30,7 +30,7 @@ public class CompositeNode implements ICompositeNode {
         return renderer;
     }
 
-    public void addNode(INode iNode){
+    void addNode(INode iNode){
         nodes.add(iNode);
     }
 }
