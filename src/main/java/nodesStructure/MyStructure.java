@@ -37,9 +37,9 @@ public class MyStructure implements IMyStructure, Iterable<INode> {
         myIterator = new MyIterator(flatNodes);
 
         while (iterator().hasNext()) {
-            INode temp = iterator().next();
-            if (temp instanceof ICompositeNode) {
-                for (INode node : ((ICompositeNode) temp).getNodes()){
+            INode currentNode = iterator().next();
+            if (currentNode instanceof ICompositeNode) {
+                for (INode node : ((ICompositeNode) currentNode).getNodes()){
                     if (!flatNodes.contains(node)){
                         flatNodes.add(node);
                     }
